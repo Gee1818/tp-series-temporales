@@ -10,3 +10,7 @@ Se recopiló el número de viajes diarios (desde 1/1/2021 hasta 30/4/2024), segm
 * Ciudad Univ. I
 * Ciudad Univ. II
 * Plaza San Martín
+
+![Series de tiempo consideradas.](lineplot.png)
+
+![Correlaciones entre las observaciones de cada estación de destino.](corrs.png)
