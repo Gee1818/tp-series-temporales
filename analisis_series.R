@@ -25,3 +25,22 @@ data %>%
 data_wide = data %>% 
   pivot_wider(names_from = destino, values_from = viajes)
 corrMatrix = cor(data_wide[,2:7])
+
+# Probar Dickey-Fuller (raices unitarias)
+library(tseries)
+data %>% 
+  filter(destino == "Fac. Ciencias Económicas") %>% 
+  pull(viajes) %>% 
+  ts(frequency = 7) %>% 
+  adf.test(k = floor(12*(length(.)/100)^0.25))
+
+# Probar test HEGY (raices unitarias estacionales)
+library(uroot)
+ts_med <- data %>% 
+  filter(destino == "Fac. de Ingeniería") %>% 
+  pull(viajes) %>% 
+  ts(frequency = 7)
+hegy.test(ts_med, lag.method = "fixed", deterministic = c(1,1,0), maxlag = 22)
+# Luego de una diferenciacion estacional...
+ts_med_D1 <- diff(ts_med, lag = 7)
+hegy.test(ts_med_D1)
